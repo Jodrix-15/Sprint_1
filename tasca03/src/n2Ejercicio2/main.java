@@ -1,20 +1,21 @@
-package n2Ejercicio1;
-
+package n2Ejercicio2;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
+
+import n2Ejercicio1.Entrada;
+import n2Ejercicio1.Restaurante;
 
 public class main {
 
 	public static void main(String[] args) {
-		/*Crea una classe anomenada Restaurant amb dos atributs: nom(String) i puntuació(int). 
-		 * Implementa els mètodes necessaris perquè no es puguin introduir objectes Restaurant 
-		 * amb el mateix nom i la mateixa puntuació en un HashSet creat en el main() de 
-		 * l’aplicació.
-		 * 
-		 * Pot haver-hi restaurants amb el mateix nom amb diferent puntuació, però no pot haver-hi 
-		 * restaurants amb el mateix nom i la mateixa puntuació.*/
-		
+		/*Utilitzant la classe del programa anterior, crea la 
+		 * implementació necessària perquè els objectes de la classe 
+		 * Restaurant estiguin ordenats per nom i per puntuació en ordre ascendent. 
+		 */
+
 		HashSet<Restaurante> restaurantes = new HashSet<>();
+		ArrayList<Restaurante> r = new ArrayList<Restaurante>();
 		Entrada ex = new Entrada();
 		
 		int opcion = 0;
@@ -29,9 +30,11 @@ public class main {
 				if (opcion == 1) {
 					Restaurante restaurante = new Restaurante (ex.llegirString("Nombre del restaurante: "), ex.llegirInt("Puntuacion: "));
 					introducirRestaurante(restaurante, restaurantes);
+					r = ordenarRestaurantes(restaurantes);
+					//System.out.println("Aquí llego");
 				}
 				if (opcion == 2) {
-					mostrarRestaurantes(restaurantes);
+					mostrarRestaurantes(r);
 				}
 			}catch(Exception e) {
 				System.out.println("Debes escribir un numero entero");
@@ -52,6 +55,26 @@ public class main {
 		
 	}
 	
+	public static ArrayList<Restaurante> ordenarRestaurantes(HashSet<Restaurante> restaurantes) {
+		
+		ArrayList<Restaurante> r = new ArrayList<Restaurante>(restaurantes);
+		Restaurante rAux;
+
+		for (int i = 0; i<r.size(); i++) {
+			for(int j=i+1; j<r.size(); j++) {
+				
+				
+				if(r.get(i).getPoints() < r.get(j).getPoints()) {
+					r.add(i, r.get(j));
+					System.out.println("aqui llego");
+			
+				}
+			}			
+		}
+		
+		return r;
+	}
+	
 	public static boolean buscarRestaurante(Restaurante r, HashSet<Restaurante> restaurantes) {
 		
 		Iterator<Restaurante> it = restaurantes.iterator();
@@ -69,12 +92,13 @@ public class main {
 		return restauranteRegistrado;
 	}
 	
-	public static void mostrarRestaurantes(HashSet<Restaurante> restaurantes) {
+	public static void mostrarRestaurantes(ArrayList<Restaurante>  restaurantes) {
 		Iterator<Restaurante> it = restaurantes.iterator();
 		while (it.hasNext()) {
 			Restaurante r = it.next();
 			System.out.println("Nombre: " + r.getName() + "\tPuntuacion: " + r.getPoints());
 		}
+		System.out.println();
 	}
 	
 	public static void menu() {
@@ -85,3 +109,6 @@ public class main {
 	}
 
 }
+
+
+
