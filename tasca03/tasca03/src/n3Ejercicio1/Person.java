@@ -3,7 +3,7 @@ package n3Ejercicio1;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class Person implements Comparator<Person>{
+public class Person {
 	
 
 	private String name;
@@ -29,12 +29,7 @@ public class Person implements Comparator<Person>{
 		return id;
 	}
 	
-	@Override
-	public int compare(Person p1, Person p2) {
-		// TODO Auto-generated method stub
-		
-		return p1.getName().compareToIgnoreCase(p2.getName());
-	}
+	
 	
 
 

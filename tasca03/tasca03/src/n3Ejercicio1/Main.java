@@ -1,5 +1,5 @@
 package n3Ejercicio1;
-
+import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,6 +25,7 @@ public class Main {
 		
 		
 		do {
+			menu();
 			option = choiceOption(ex);
 			
 			switch(option) {
@@ -35,19 +36,19 @@ public class Main {
 				showByName(people);
 				break;
 			case 3:
-				reverseShowByName();
+				reverseShowByName(people);
 				break;
 			case 4:
-				showByLastName();
+				showByLastName(people);
 				break;
 			case 5:
-				reverseShowByLastName();
+				reverseShowByLastName(people);
 				break;
 			case 6:
-				showById();
+				showById(people);
 				break;
 			case 7:
-				reverseShowById();
+				reverseShowById(people);
 				break;
 			}
 			
@@ -103,30 +104,155 @@ public class Main {
 	}
 	
 	public static void showByName(Set<Person> people) {
-		TreeSet<Person> sort = new TreeSet<Person>(people);
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getName();
+				String name2 = p2.getName();
+				
+				return name1.compareTo(name2);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
 		
 		
-		
-		System.out.println(sort);
 	}
 	
-	public static void reverseShowByName() {
+	public static void reverseShowByName(Set<Person> people) {
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getName();
+				String name2 = p2.getName();
+				
+				return name2.compareTo(name1);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
+		
+		
 		
 	}
 	
-	public static void showByLastName() {
+	public static void showByLastName(Set<Person> people) {
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getLastName();
+				String name2 = p2.getLastName();
+				
+				return name1.compareTo(name2);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
 		
 	}
 	
-	public static void reverseShowByLastName() {
+	public static void reverseShowByLastName(Set<Person> people) {
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getLastName();
+				String name2 = p2.getLastName();
+				
+				return name2.compareTo(name1);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
 		
 	}
 	
-	public static void showById() {
+	public static void showById(Set<Person> people) {
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getId();
+				String name2 = p2.getId();
+				
+				return name1.compareTo(name2);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
 		
 	}
 	
-	public static void reverseShowById() {
+	public static void reverseShowById(Set<Person> people) {
+		
+		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+			
+			public int compare(Person p1, Person p2) {
+				String name1 = p1.getId();
+				String name2 = p2.getId();
+				
+				return name2.compareTo(name1);
+				
+			}
+		});
+		
+		for (Person p : people) {
+			sort.add(p);
+		}
+		
+		System.out.println("__NOMBRE__\t__APELLIDOS__\t__DNI__");
+		for (Person p : sort) {
+			System.out.println(p.getName() + "\t   " + p.getLastName() + "  \t" + p.getId());
+		}
+		System.out.println();
 		
 	}
 	
@@ -137,6 +263,7 @@ public class Main {
 		do {
 			try {
 				option = ex.llegirInt("Escoge una opcion: ");
+				System.out.println();
 				isInt = true;
 				
 			}catch(InputMismatchException e) {
