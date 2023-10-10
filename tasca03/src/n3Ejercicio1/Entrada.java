@@ -105,12 +105,12 @@ public class Entrada extends Exception{
 		
 		switch (msj.toLowerCase()) {
 		case "nombre":
-			System.out.println("Nombre: ");
+			System.out.print("Nombre: ");
 			texto = input().next();
 			break;
 		case "apellidos":
 			do {
-				System.out.println("Apellidos: ");
+				System.out.print("Apellidos: ");
 				texto = input().nextLine();
 				nombreApellidos = texto.split(" ");
 				if(nombreApellidos.length != 2) {
@@ -144,8 +144,8 @@ public class Entrada extends Exception{
 				try {
 					do {
 						obj = llegirChar("Introduce la letra del DNI: ");
-						dniLetra = obj.toString();
-						if((dniLetra.toUpperCase().codePointAt(0) < 65 || dniLetra.toUpperCase().codePointAt(0)>90)){
+						dniLetra = obj.toString().toUpperCase();
+						if((dniLetra.codePointAt(0) < 65 || dniLetra.codePointAt(0)>90)){
 							System.out.println("Debe ser una letra (A-Z)");
 						}
 						isCorrect = true;
