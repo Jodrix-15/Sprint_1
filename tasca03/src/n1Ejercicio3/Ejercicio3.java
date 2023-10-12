@@ -7,37 +7,39 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.*;
 
 
-public class Ejercicio3 {
+public class Main {
 
 	public static void main(String[] args) {
 		/*Donat el fitxer countrties.txt (revisa l'apartat recursos) 
-		 * que conté països i capitals. El programa ha de llegir el fitxer 
+		 * que contÃ© paÃ¯sos i capitals. El programa ha de llegir el fitxer 
 		 * i guardar les dades en un HashMap<String, String>. El programa 
-		 * demana el nom de l’usuari/ària, i després ha de mostrar un país 
-		 * de forma aleatòria, guardat en el HashMap. Es tracta de què l’usuari/ària 
-		 * ha d’escriure el nom de la capital del país en qüestió. Si l’encerta se 
-		 * li suma un punt. Aquesta acció es repeteix 10 vegades. Un cop demanades 
-		 * les capitals de 10 països de forma aleatòria, llavors s’ha de guardar en 
-		 * un fitxer anomenat classificacio.txt, el nom de l’usuari/ària i la seva puntuació.*/
+		 * demana el nom de lâ€™usuari/Ã ria, i desprÃ©s ha de mostrar un paÃ­s 
+		 * de forma aleatÃ²ria, guardat en el HashMap. Es tracta de quÃ¨ lâ€™usuari/Ã ria 
+		 * ha dâ€™escriure el nom de la capital del paÃ­s en qÃ¼estiÃ³. Si lâ€™encerta se 
+		 * li suma un punt. Aquesta acciÃ³ es repeteix 10 vegades. Un cop demanades 
+		 * les capitals de 10 paÃ¯sos de forma aleatÃ²ria, llavors sâ€™ha de guardar en 
+		 * un fitxer anomenat classificacio.txt, el nom de lâ€™usuari/Ã ria i la seva puntuaciÃ³.*/
 		
 		HashMap<String, String> paisesCapitales = new HashMap<>();
 	
 		int puntuacion = 0;
-		int numRandom = 0;
+		Set<Integer> numRandom;
 		String [] opcionRandom;
 		String nombreUsuario = null;
 		String respuestaUsuario;
 		FileWriter clasificacion;
 
-		leerFichero("\\Users\\formacio\\Desktop\\countries.txt", paisesCapitales);
+		leerFichero("\\Users\\Oven\\Desktop\\countries.txt", paisesCapitales);
 			
 		nombreUsuario = getString("Nombre usuario: ");
+		numRandom = numRandom(paisesCapitales);
 		
 		for (int i=0; i<10; i++) {
-			numRandom = numRandom(paisesCapitales);
-			opcionRandom = paisCapitalRandom(numRandom, paisesCapitales);
+			
+			opcionRandom = paisCapitalRandom(i, numRandom, paisesCapitales);
 			respuestaUsuario = getString("\nLa capital de " +opcionRandom[0]+" es: " );
 			if(respuestaUsuario.equalsIgnoreCase(opcionRandom[1])) {
 				System.out.println("Respuesta Correcta");
@@ -71,7 +73,7 @@ public class Ejercicio3 {
 			while (cadena != null) {
 				cadena = b.readLine();
 
-				if (cadena != null ){
+				if (cadena != null && !cadena.isEmpty()){
 					paisCapital = cadena.split(" ");
 
 					paisesCapitales.put(paisCapital[0], paisCapital[1]);
@@ -84,25 +86,37 @@ public class Ejercicio3 {
 		
 	}
 	
-	public static int numRandom(HashMap<String, String> paisesCapitales) {
+	public static Set<Integer> numRandom(HashMap<String, String> paisesCapitales) {
 		
 		Random r = new Random();
-	
-		return r.nextInt(paisesCapitales.size()) + 1;
+		int numRandom;
+		Set<Integer> indices = new HashSet<Integer>();
+		
+		while (indices.size() != 10) {
+			numRandom = r.nextInt(paisesCapitales.size() + 1);
+			indices.add(numRandom);
+		}
+		
+
+		return indices;
 	}
 	
-	public static String[] paisCapitalRandom(int numRandom, HashMap<String, String> paisesCapitales) {
+	public static String[] paisCapitalRandom(int indexArray, Set<Integer> numRandom, HashMap<String, String> paisesCapitales) {
 		int index = 0;
+		int num;
 		String [] opcionRandom = {"", ""};
-		ArrayList<String> paisesPreguntados = new ArrayList<String>();
+		
+		ArrayList<Integer> arrayNums = new ArrayList<Integer>(numRandom);
+		num = arrayNums.get(indexArray);
 		
 		for (HashMap.Entry<String, String> pais : paisesCapitales.entrySet()) {
-			
-			if(index == numRandom) {
+	
+			if(index == num) {
 				opcionRandom[0] = pais.getKey();
 				opcionRandom[1] = pais.getValue();
-				paisesPreguntados.add(pais.getKey());
+
 			}
+			
 			index ++;
 		}
 		
