@@ -1,0 +1,13 @@
+
+C1F1.txt(F)	Mon Oct 16 10:01:57 CEST 2023
+C1F2.txt(F)	Mon Oct 16 10:01:50 CEST 2023
+CC2F.txt(F)	Mon Oct 16 10:02:52 CEST 2023
+C2F1.txt(F)	Mon Oct 16 10:02:15 CEST 2023
+CarpC2(D)	Mon Oct 16 10:37:58 CEST 2023
+aaa.txt(F)	Mon Oct 16 09:45:20 CEST 2023
+bbb.txt(F)	Mon Oct 16 09:45:51 CEST 2023
+caperta1(D)	Mon Oct 16 10:39:12 CEST 2023
+Carpeta2(D)	Mon Oct 16 10:40:27 CEST 2023
+ccc.txt(F)	Mon Oct 16 09:45:58 CEST 2023
+ddd.txt(F)	Mon Oct 16 09:46:05 CEST 2023
+eee.txt(F)	Mon Oct 16 09:46:11 CEST 2023
