@@ -1,12 +1,16 @@
 package n3Ejercicio1;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.InputMismatchException;
+import java.util.NavigableSet;
 import java.util.Set;
 import java.util.TreeSet;
+
+import n2Ejercicio1.Entrada;
 
 public class Main {
 
@@ -20,44 +24,41 @@ public class Main {
 		 */
 		
 		Set<Person> people = new HashSet<Person>();
+		TreeSet<Person> listPerson;
 		Entrada ex = new Entrada();
 		int option;
 		
-		readFile("\\Users\\formacio\\eclipse-workspace\\tasca03\\src\\n3Ejercicio1\\n3Ejercicio1.csv", people);
-		
-		
-		do {
-			menu();
-			option = choiceOption(ex);
-			
-			switch(option) {
-			case 1:
-				insertPerson(ex, people);
-				break;
-			case 2:
-				showByName(people);
-				break;
-			case 3:
-				reverseShowByName(people);
-				break;
-			case 4:
-				showByLastName(people);
-				break;
-			case 5:
-				reverseShowByLastName(people);
-				break;
-			case 6:
-				showById(people);
-				break;
-			case 7:
-				reverseShowById(people);
-				break;
-			}
-			
-		}while(option != 0);
-		
-
-
+		if (readFile("n3Ejercicio1.csv", people) == true) {
+			do {
+				menu();
+				option = choiceOption(ex);
+				
+				switch(option) {
+				case 1:
+					insertPerson(ex, people);
+					break;
+				case 2:
+					showByName(people, false);
+					break;
+				case 3:
+					showByName(people, true);
+					break;
+				case 4:
+					showByLastName(people, false);
+					break;
+				case 5:
+					showByLastName(people, true);
+					break;
+				case 6:
+					showById(people, false);
+					break;
+				case 7:
+					showById(people, true);
+					break;
+				}
+				
+			}while(option != 0);
+		}
 
 	}
 	public static void menu() {
@@ -69,13 +70,15 @@ public class Main {
 				+ "4. Mostrar las personas ordenadas por apellidos (A-Z)\n"
 				+ "5. Mostrar las personas ordenadas por apellidos (Z-A)\n"
 				+ "6. Mostrar las personas ordenadas por DNI (1-9)\n"
-				+ "7. Mostrar las personas ordenadas por DNI (9-1)\n");
+				+ "7. Mostrar las personas ordenadas por DNI (9-1)\n"
+				+ "0. Salir\n");
 	}
 	
-	public static void readFile(String fichero, Set<Person> people) {
+	public static boolean readFile(String fichero, Set<Person> people) {
 		String cadena= "";
 		String [] cadenaSplit;
 		Person p;
+		boolean existeFichero = false;
 		
 		
 		try {
@@ -91,10 +94,14 @@ public class Main {
 					
 				}
 			}
+			existeFichero = true;
 		
 		}catch (IOException e) {
 			System.out.println("Fichero no encontrado");
+			existeFichero = false;
 		}
+		
+		return existeFichero;
 	}
 	
 	public static void insertPerson(Entrada ex, Set<Person> people) {
@@ -105,7 +112,7 @@ public class Main {
 	
 	}
 	
-	public static void showByName(Set<Person> people) {
+	public static void showByName(Set<Person> people, boolean bol) {
 		
 		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
 			
@@ -113,36 +120,19 @@ public class Main {
 				String name1 = p1.getName();
 				String name2 = p2.getName();
 				
-				return name1.compareTo(name2);
+				return name1.compareToIgnoreCase(name2);
 				
 			}
 		});
-		
-		showTreeSet(sort, people);
-		
-		
-	}
-	
-	public static void reverseShowByName(Set<Person> people) {
-		
-		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+		if (bol == true) {
+			showTreeSet(sort.reversed(), people);
 			
-			public int compare(Person p1, Person p2) {
-				String name1 = p1.getName();
-				String name2 = p2.getName();
-				
-				return name2.compareTo(name1);
-				
-			}
-		});
-		
-		showTreeSet(sort, people);
-		
-		
+		}else showTreeSet(sort, people);
 		
 	}
 	
-	public static void showByLastName(Set<Person> people) {
+	
+	public static void showByLastName(Set<Person> people, boolean bol) {
 		
 		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
 			
@@ -150,33 +140,19 @@ public class Main {
 				String name1 = p1.getLastName();
 				String name2 = p2.getLastName();
 				
-				return name1.compareTo(name2);
+				return name1.compareToIgnoreCase(name2);
 				
 			}
 		});
 		
-		showTreeSet(sort, people);
-		
-	}
-	
-	public static void reverseShowByLastName(Set<Person> people) {
-		
-		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+		if (bol == true) {
+			showTreeSet(sort.reversed(), people);
 			
-			public int compare(Person p1, Person p2) {
-				String name1 = p1.getLastName();
-				String name2 = p2.getLastName();
-				
-				return name2.compareTo(name1);
-				
-			}
-		});
-		
-		showTreeSet(sort, people);
+		}else showTreeSet(sort, people);
 		
 	}
 	
-	public static void showById(Set<Person> people) {
+	public static void showById(Set<Person> people,  boolean bol) {
 		
 		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
 			
@@ -189,29 +165,13 @@ public class Main {
 			}
 		});
 		
-		showTreeSet(sort, people);
-		
-	}
-	
-	public static void reverseShowById(Set<Person> people) {
-		
-		TreeSet<Person> sort = new TreeSet<Person>(new Comparator<Person>() {
+		if (bol == true) {
+			showTreeSet(sort.reversed(), people);
 			
-			public int compare(Person p1, Person p2) {
-				String name1 = p1.getId();
-				String name2 = p2.getId();
-				
-				return name2.compareTo(name1);
-				
-			}
-		});
-		
-		showTreeSet(sort, people);
-		
-		
+		}else showTreeSet(sort, people);
 	}
 	
-	public static void showTreeSet(TreeSet<Person> sort, Set<Person> people) {
+	public static void showTreeSet(NavigableSet<Person> sort, Set<Person> people) {
 		
 		for (Person p : people) {
 			sort.add(p);

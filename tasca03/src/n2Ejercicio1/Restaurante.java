@@ -1,5 +1,7 @@
 package n2Ejercicio1;
 
+import java.util.Objects;
+
 public class Restaurante {
 	
 	private String name;
@@ -9,39 +11,29 @@ public class Restaurante {
 		this.name = name;
 		this.points = points;
 	}
-	
-	public boolean equalRestaurante(Restaurante r) {
-		boolean restauranteEqual = false;
-		
-		if(equalsName(r) && equalsPoints(r)) {
-			restauranteEqual = true;
-		}
-		
-		return restauranteEqual;
-	}
-	
-	public boolean equalsName(Restaurante r) {
-		boolean nameEqual = false;
-		
-		if(this.name.equalsIgnoreCase(r.getName())) {
-			nameEqual = true;
-		}
-		
-		return nameEqual;
-	}
-	
-	public boolean equalsPoints(Restaurante r) {
-		boolean pointEqual = false;
-		
-		if(this.points == r.getPoints()) {
-			pointEqual = true;
-		}
-		
-		return pointEqual;
-	}
+
 
 	public String getName() {
 		return name;
+	}
+
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(points);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Restaurante other = (Restaurante) obj;
+		return points == other.points;
 	}
 
 	public int getPoints() {
